@@ -21,6 +21,10 @@ class Chef::Resource::NginxSite < Chef::Resource
   # @return [String]
   attribute(:source, kind_of: String, default: 'default-site.erb')
 
+  # @!attribute cookbook
+  # @return [String]
+  attribute(:cookbook, kind_of: String, default: 'nginx')
+
   # @initial settings for functioning site
   attribute(:servername, kind_of: [String, NilClass], default: nil)
   attribute(:port, kind_of: Integer, default: '80')
