@@ -112,6 +112,12 @@ class Chef::Provider::NginxService < Chef::Provider
         )
         action :create
       end
+
+      # override templates for nginx specific options
+    %w{systemd upstart}.each do |v|
+      poise_service "nginx" do
+          options :v, template: "nginx:#{v}.erb"
+      end
     end
     super
   end
@@ -119,7 +125,7 @@ class Chef::Provider::NginxService < Chef::Provider
   def service_options(service)
     service.service_name('nginx')
     service.command('/usr/sbin/nginx')
-    service.directory('/run')
+    service.environment({'PID' => '/var/run/nginx/nginx.pid'})
     service.user(platform_user)
     service.restart_on_update(true)
   end
