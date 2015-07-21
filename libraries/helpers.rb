@@ -16,5 +16,14 @@ module NginxCookbook
       end
     end
 
+    def proc_init
+      if node['platform_family'] == 'debian' && node['platform_version'] > '12.10'
+        return 'upstart'
+      elsif node['platform_family'] == 'rhel' && node['platform_version'] > '5'
+        return 'systemd'
+      else
+        return 'sysvinit'
+      end
+    end
   end
 end

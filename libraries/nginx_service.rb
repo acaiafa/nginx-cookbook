@@ -114,9 +114,8 @@ class Chef::Provider::NginxService < Chef::Provider
       end
 
       # override templates for nginx specific options
-    %w(systemd upstart).each do |v|
       poise_service "nginx" do
-          options ":#{v}", template: "nginx:#{v}.erb"
+          options ":#{proc_init}", template: "nginx:#{proc_init}.erb"
       end
     end
     super
