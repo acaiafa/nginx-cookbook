@@ -12,6 +12,7 @@ chdir <%= @directory %>
 <%- @environment.each do |key, val| -%>
 env <%= key %>="<%= val %>"
 <%- end -%>
+# Added expect so nginx can fork properly
 expect fork
 <%- if @upstart_features[:setuid] -%>
 setuid <%= @user %>
